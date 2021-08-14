@@ -1,0 +1,38 @@
+# This workflow will run after a merge into main so the code should have already been tested
+# It will then build and deploy to Netlify
+
+name: Build and Deploy to Netlify
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v2
+        with:
+          node-version: '12'
+          cache: 'yarn'
+
+      - name: Install Dependencies
+        run: yarn
+
+      - name: Build site
+        run: yarn build
+
+      # Deploy the site with netlify-cli
+      - name: Install Netlify CLI
+        run: yarn add netlify-cli
+
+      - name: Deploy Site
+        env:
+          NETLIFY_SITE_ID: ${{ secrets.NETLIFY_SITE_ID }}
+          NETLIFY_AUTH_TOKEN: ${{ secrets.NETLIFY_AUTH_TOKEN }}
+        run: netlify deploy --dir=build --prod
