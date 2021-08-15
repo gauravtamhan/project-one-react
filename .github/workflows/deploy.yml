@@ -1,7 +1,7 @@
 # This workflow will run after a merge into main so the code should have already been tested
 # It will then build and deploy to Netlify
 
-name: Build and Deploy to Netlify
+name: Build and Deploy
 
 on:
   push:
@@ -19,7 +19,11 @@ jobs:
         uses: actions/setup-node@v2
         with:
           node-version: '12'
-          cache: 'yarn'
+
+      - uses: actions/cache@v2
+        with:
+          path: '**/node_modules'
+          key: ${{ runner.os }}-node-${{ hashFiles('**/yarn.lock') }}
 
       - name: Install Dependencies
         run: yarn
@@ -27,7 +31,6 @@ jobs:
       - name: Build site
         run: yarn build
 
-      # Deploy the site with netlify-cli
       - name: Install Netlify CLI
         run: yarn add netlify-cli
 
