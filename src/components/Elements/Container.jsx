@@ -4,9 +4,13 @@ import PropTypes from 'prop-types'
 
 const useStyles = makeStyles((theme) => ({
   containerRoot: {
+    [theme.breakpoints.up('xs')]: {
+      paddingLeft: 'max(16px, env(safe-area-inset-left))',
+      paddingRight: 'max(16px, env(safe-area-inset-right))',
+    },
     [theme.breakpoints.up('sm')]: {
-      paddingLeft: 32,
-      paddingRight: 32,
+      paddingLeft: 'max(32px, env(safe-area-inset-left))',
+      paddingRight: 'max(32px, env(safe-area-inset-right))',
     },
     [theme.breakpoints.up('md')]: {
       maxWidth: 840,
