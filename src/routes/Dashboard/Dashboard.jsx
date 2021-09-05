@@ -1,5 +1,7 @@
+import ContentArea from 'components/Elements/ContentArea'
+
 const Dashboard = () => {
-  return <div>Dashboard</div>
+  return <ContentArea />
 }
 
 export default Dashboard
