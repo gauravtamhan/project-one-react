@@ -1,6 +1,7 @@
-# Getting Started with Create React App
+# Summary
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+A simple blog post app built using React. 
+View the live version: [https://sleepy-benz-45426d.netlify.app](https://sleepy-benz-45426d.netlify.app)
 
 ## Available Scripts
 
