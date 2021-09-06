@@ -1,15 +1,20 @@
 import React, { useState, useEffect } from 'react'
-import { Grid, Typography, Divider, Hidden } from '@material-ui/core'
+import { Typography, Divider } from '@material-ui/core'
+
 import { makeStyles } from '@material-ui/core/styles'
-import PropTypes from 'prop-types'
 import { fetchAllPosts, fetchAllUsers } from 'api/jsonplaceholder'
 import { fetchNumberOfImages } from 'api/picsum'
 import Post from 'components/Post/Post'
 import { shuffle } from 'utils/arrayUtils'
+import Layout from 'components/Layout/TwoColLayout'
+import Topics from 'components/Aside/Topics'
+import Follows from 'components/Aside/Follows'
+import ReadingList from 'components/Aside/ReadingList'
 
 const useStyles = makeStyles((theme) => ({
-  contentPaddingTop: {
-    paddingTop: theme.spacing(5),
+  dividerMargin: {
+    marginTop: theme.spacing(7),
+    marginBottom: theme.spacing(7),
   },
 }))
 
@@ -32,9 +37,13 @@ const mergeData = (posts, users, images) => {
 }
 
 const NUMBER_OF_POSTS = 10
+const NUMBER_OF_USERS_TO_FOLLOW = 3
 
 const Dashboard = () => {
-  const [data, setData] = useState()
+  const classes = useStyles()
+
+  const [combinedPostData, setCombinedPostData] = useState()
+  const [users, setUsers] = useState()
   const [isLoading, setIsLoading] = useState(true)
 
   useEffect(() => {
@@ -44,11 +53,12 @@ const Dashboard = () => {
         shuffle(allPosts)
         const posts = allPosts.slice(0, NUMBER_OF_POSTS)
         const users = await fetchAllUsers()
+        setUsers(shuffle(users))
         const imageNumberAdjustment = posts.length + 2
         const allImages = await fetchNumberOfImages(imageNumberAdjustment)
         const images = allImages.slice(2)
 
-        setData(mergeData(posts, users, images))
+        setCombinedPostData(mergeData(posts, users, images))
       } catch (e) {
         console.log('Error: ', e)
       } finally {
@@ -58,13 +68,13 @@ const Dashboard = () => {
     fetchData()
   }, [])
 
-  if (isLoading || !data) return <div>Loading...</div>
+  if (isLoading || !combinedPostData) return <div>Loading...</div>
 
   const mainContent = (
     <>
       <Typography variant="overline">Trending Posts</Typography>
       <Divider />
-      {data.map(({ id, title, body, authorName, imgUrl }) => (
+      {combinedPostData.map(({ id, title, body, authorName, imgUrl }) => (
         <Post
           key={id}
           id={id}
@@ -78,43 +88,22 @@ const Dashboard = () => {
     </>
   )
 
+  const usersToFollow = users.slice(0, NUMBER_OF_USERS_TO_FOLLOW)
+
+  // TODO: Pull this out into it's own component so that you can test it. <Aside />
   const secondaryContent = (
-    <div style={{ backgroundColor: '#cfe8fc', height: '600px' }}></div>
+    <>
+      <Topics />
+      <Divider className={classes.dividerMargin} />
+      <Follows usersToFollow={usersToFollow} />
+      <Divider className={classes.dividerMargin} />
+      <ReadingList />
+    </>
   )
 
   return (
     <Layout mainContent={mainContent} secondaryContent={secondaryContent} />
   )
-}
-
-/**
- * 2 Column Responsive Layout:
- * - main content spans 8 columns.
- * - secondary content spans 4 columns.
- *
- * On md screen sizes and lower:
- * - main content spans entire page, secondary content is hidden.
- */
-const Layout = ({ mainContent, secondaryContent }) => {
-  const classes = useStyles()
-
-  return (
-    <Grid container spacing={2} className={classes.contentPaddingTop}>
-      <Grid item xs={12} lg={8}>
-        {mainContent}
-      </Grid>
-      <Hidden mdDown>
-        <Grid item lg={4}>
-          {secondaryContent}
-        </Grid>
-      </Hidden>
-    </Grid>
-  )
-}
-
-Layout.propTypes = {
-  mainContent: PropTypes.element.isRequired,
-  secondaryContent: PropTypes.element.isRequired,
 }
 
 export default Dashboard

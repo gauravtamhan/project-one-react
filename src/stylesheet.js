@@ -23,9 +23,26 @@ const muiAppBar = {
   },
 }
 
+const muiButton = {
+  MuiButton: {
+    root: {
+      fontSize: 14,
+      lineHeight: 1.43,
+      textTransform: 'none',
+      borderRadius: 24,
+      color: colors.typography.primary,
+    },
+    outlined: {
+      borderColor: colors.typography.secondary,
+      padding: '5px 12px 5px',
+    },
+  },
+}
+
 export const muiTheme = createTheme({
   overrides: {
     ...muiAppBar,
+    ...muiButton,
   },
   breakpoints: {
     values: {
@@ -39,6 +56,10 @@ export const muiTheme = createTheme({
   palette: {
     background: {
       default: colors.white,
+    },
+    typography: {
+      primary: '#292929',
+      secondary: '#757575',
     },
   },
   typography: {
