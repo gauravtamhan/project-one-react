@@ -3,7 +3,7 @@ import BookmarkAdd from '@material-ui/icons/BookmarkBorderOutlined'
 import { makeStyles } from '@material-ui/core/styles'
 import { Link } from 'react-router-dom'
 import PropTypes from 'prop-types'
-import { capitalize } from 'utils/stringFormat'
+import { capitalize } from 'utils/stringUtils'
 import clsx from 'clsx'
 
 const useStyles = makeStyles((theme) => ({
@@ -29,6 +29,8 @@ const useStyles = makeStyles((theme) => ({
     },
   },
   img: {
+    width: 220,
+    height: 160,
     [theme.breakpoints.down('xs')]: {
       width: 116,
       height: 102,
