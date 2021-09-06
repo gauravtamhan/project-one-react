@@ -21,6 +21,7 @@ const useStyles = makeStyles((theme) => ({
   },
   logoButton: {
     paddingLeft: 0,
+    minWidth: 'unset',
     '&:hover': {
       backgroundColor: 'unset',
     },
