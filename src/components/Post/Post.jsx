@@ -44,7 +44,12 @@ const Post = ({ id, authorName, title, description, date, imgUrl }) => {
   const linkTo = `/story/${id}`
 
   return (
-    <Box display="flex" flex="1 1 auto" mt={{ xs: 4, sm: 6 }}>
+    <Box
+      display="flex"
+      flex="1 1 auto"
+      justifyContent="space-between"
+      mt={{ xs: 4, sm: 6 }}
+    >
       <Box marginRight={2.5}>
         <Link to={linkTo} className={classes.link}>
           <Box display="flex" alignItems="center" pb={1}>
