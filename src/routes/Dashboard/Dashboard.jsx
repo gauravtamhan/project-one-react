@@ -13,8 +13,8 @@ import ReadingList from 'components/Aside/ReadingList'
 
 const useStyles = makeStyles((theme) => ({
   dividerMargin: {
-    marginTop: theme.spacing(7),
-    marginBottom: theme.spacing(7),
+    marginTop: theme.spacing(6),
+    marginBottom: theme.spacing(6),
   },
 }))
 

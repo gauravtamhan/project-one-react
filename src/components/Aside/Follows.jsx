@@ -1,7 +1,8 @@
-import { Avatar, Box, Typography, Button } from '@material-ui/core'
+import { Box, Typography, Button } from '@material-ui/core'
 import { makeStyles } from '@material-ui/core/styles'
 import AsideSection from 'components/Layout/AsideSection'
 import PropTypes from 'prop-types'
+import Avatar from 'components/Elements/Avatar'
 
 const useStyles = makeStyles((theme) => ({
   typographyEllipsis: {
@@ -29,7 +30,7 @@ const Follows = ({ usersToFollow }) => {
               pb={2}
             >
               <Box display="flex" alignItems="center">
-                <Avatar />
+                <Avatar alt={name}>{name[0]}</Avatar>
                 <Box mx={2} maxWidth="148px">
                   <Typography variant="h4">{name}</Typography>
                   <Typography

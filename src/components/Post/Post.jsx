@@ -1,15 +1,18 @@
-import { Box, Typography, Avatar, IconButton } from '@material-ui/core'
+import { Box, Typography, IconButton } from '@material-ui/core'
 import BookmarkAdd from '@material-ui/icons/BookmarkBorderOutlined'
 import { makeStyles } from '@material-ui/core/styles'
 import { Link } from 'react-router-dom'
 import PropTypes from 'prop-types'
 import { capitalize } from 'utils/stringUtils'
 import clsx from 'clsx'
+import Avatar from 'components/Elements/Avatar'
 
 const useStyles = makeStyles((theme) => ({
   avatarSmall: {
     width: theme.spacing(2.5),
     height: theme.spacing(2.5),
+    fontSize: '0.75rem',
+    fontWeight: '700',
   },
   link: {
     textDecoration: 'none',
@@ -53,7 +56,9 @@ const Post = ({ id, authorName, title, description, date, imgUrl }) => {
       <Box width="100%" marginRight={2.5}>
         <Link to={linkTo} className={classes.link}>
           <Box display="flex" alignItems="center" pb={1}>
-            <Avatar alt={authorName} className={classes.avatarSmall} />
+            <Avatar alt={authorName} className={classes.avatarSmall}>
+              {authorName[0]}
+            </Avatar>
             <Box ml={1}>
               <Typography variant="h4">{authorName}</Typography>
             </Box>
