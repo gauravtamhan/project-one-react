@@ -50,7 +50,7 @@ const Post = ({ id, authorName, title, description, date, imgUrl }) => {
       justifyContent="space-between"
       mt={{ xs: 4, sm: 6 }}
     >
-      <Box marginRight={2.5}>
+      <Box width="100%" marginRight={2.5}>
         <Link to={linkTo} className={classes.link}>
           <Box display="flex" alignItems="center" pb={1}>
             <Avatar alt={authorName} className={classes.avatarSmall} />
