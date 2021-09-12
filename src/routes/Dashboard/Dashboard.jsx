@@ -1,22 +1,11 @@
 import React, { useState, useEffect } from 'react'
 import { Typography, Divider } from '@material-ui/core'
-
-import { makeStyles } from '@material-ui/core/styles'
 import { fetchAllPosts, fetchAllUsers } from 'api/jsonplaceholder'
 import { fetchNumberOfImages } from 'api/picsum'
 import Post from 'components/Post/Post'
 import { shuffle } from 'utils/arrayUtils'
 import Layout from 'components/Layout/TwoColLayout'
-import Topics from 'components/Aside/Topics'
-import Follows from 'components/Aside/Follows'
-import ReadingList from 'components/Aside/ReadingList'
-
-const useStyles = makeStyles((theme) => ({
-  dividerMargin: {
-    marginTop: theme.spacing(6),
-    marginBottom: theme.spacing(6),
-  },
-}))
+import Aside from 'components/Aside/Aside'
 
 const mergeData = (posts, users, images) => {
   let merged = []
@@ -40,8 +29,6 @@ const NUMBER_OF_POSTS = 10
 const NUMBER_OF_USERS_TO_FOLLOW = 3
 
 const Dashboard = () => {
-  const classes = useStyles()
-
   const [combinedPostData, setCombinedPostData] = useState()
   const [users, setUsers] = useState()
   const [isLoading, setIsLoading] = useState(true)
@@ -50,7 +37,6 @@ const Dashboard = () => {
     const fetchData = async () => {
       try {
         const allPosts = await fetchAllPosts()
-        shuffle(allPosts)
         const posts = allPosts.slice(0, NUMBER_OF_POSTS)
         const users = await fetchAllUsers()
         setUsers(shuffle(users))
@@ -58,7 +44,7 @@ const Dashboard = () => {
         const allImages = await fetchNumberOfImages(imageNumberAdjustment)
         const images = allImages.slice(2)
 
-        setCombinedPostData(mergeData(posts, users, images))
+        setCombinedPostData(shuffle(mergeData(posts, users, images)))
       } catch (e) {
         console.log('Error: ', e)
       } finally {
@@ -90,19 +76,11 @@ const Dashboard = () => {
 
   const usersToFollow = users.slice(0, NUMBER_OF_USERS_TO_FOLLOW)
 
-  // TODO: Pull this out into it's own component so that you can test it. <Aside />
-  const secondaryContent = (
-    <>
-      <Topics />
-      <Divider className={classes.dividerMargin} />
-      <Follows usersToFollow={usersToFollow} />
-      <Divider className={classes.dividerMargin} />
-      <ReadingList />
-    </>
-  )
-
   return (
-    <Layout mainContent={mainContent} secondaryContent={secondaryContent} />
+    <Layout
+      mainContent={mainContent}
+      secondaryContent={<Aside usersToFollow={usersToFollow} />}
+    />
   )
 }
 
