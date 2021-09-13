@@ -93,5 +93,26 @@ export const muiTheme = createTheme({
       lineHeight: 1.38, // 18px
       color: colors.typography.secondary,
     },
+    h1: {
+      fontFamily: 'Lora, serif',
+      fontSize: '2.875rem', // 46px
+      lineHeight: 1.21, // 56px
+      fontWeight: 400,
+    },
+    body1: {
+      fontFamily: 'Lora, serif',
+      fontSize: '1.3125rem', // 21px
+      lineHeight: 1.52, // 32px
+      fontWeight: 400,
+      margin: '32px 0 0',
+    },
+    caption: {
+      fontSize: '0.875rem',
+      lineHeight: 1.43,
+      letterSpacing: '0.01071em',
+      color: colors.typography.secondary,
+      textAlign: 'center',
+      margin: '10px 0 0',
+    },
   },
 })

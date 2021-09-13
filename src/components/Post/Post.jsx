@@ -48,6 +48,7 @@ const Post = ({ id, authorName, title, description, date, imgUrl }) => {
 
   return (
     <Box
+      component="article"
       display="flex"
       flex="1 1 auto"
       justifyContent="space-between"

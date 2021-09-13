@@ -58,7 +58,9 @@ const Dashboard = () => {
 
   const mainContent = (
     <>
-      <Typography variant="overline">Trending Posts</Typography>
+      <Typography variant="overline" component="h1">
+        Trending Posts
+      </Typography>
       <Divider />
       {combinedPostData.map(({ id, title, body, authorName, imgUrl }) => (
         <Post
