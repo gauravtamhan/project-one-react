@@ -11,6 +11,20 @@ const colors = {
   },
 }
 
+/**
+ * App Break Points
+ */
+const breakPoints = {
+  xs: 0,
+  sm: 600,
+  md: 905,
+  lg: 1240,
+  xl: 1440,
+}
+
+/**
+ * Overrides
+ */
 const muiAppBar = {
   MuiAppBar: {
     root: {
@@ -46,11 +60,7 @@ export const muiTheme = createTheme({
   },
   breakpoints: {
     values: {
-      xs: 0,
-      sm: 600,
-      md: 905,
-      lg: 1240,
-      xl: 1440,
+      ...breakPoints,
     },
   },
   palette: {
@@ -95,16 +105,25 @@ export const muiTheme = createTheme({
     },
     h1: {
       fontFamily: 'Lora, serif',
-      fontSize: '2.875rem', // 46px
-      lineHeight: 1.21, // 56px
       fontWeight: 400,
+      fontSize: '2.125rem', // 34px
+      lineHeight: 'normal',
+      [`@media (min-width:${breakPoints.sm}px)`]: {
+        fontSize: '2.875rem', // 46px
+        lineHeight: 1.21, // 56px
+      },
     },
     body1: {
       fontFamily: 'Lora, serif',
-      fontSize: '1.3125rem', // 21px
-      lineHeight: 1.52, // 32px
       fontWeight: 400,
-      margin: '32px 0 0',
+      fontSize: '1.125rem', // 18px
+      lineHeight: 1.55, // 28px
+      margin: '24px 0 0',
+      [`@media (min-width:${breakPoints.sm}px)`]: {
+        fontSize: '1.3125rem', // 21px
+        lineHeight: 1.52, // 32px
+        margin: '32px 0 0',
+      },
     },
     caption: {
       fontSize: '0.875rem',
