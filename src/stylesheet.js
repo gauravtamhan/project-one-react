@@ -5,9 +5,15 @@ import { createTheme } from '@material-ui/core/styles'
  */
 const colors = {
   white: '#fff',
+  whiteMedium: 'rgba(255, 255, 255, 0.54)',
+  footer: '#191919',
   typography: {
     primary: '#292929',
     secondary: '#757575',
+    white: {
+      dark: 'rgba(255, 255, 255, 0.98)',
+      light: 'rgba(255, 255, 255, 0.7)',
+    },
   },
 }
 
@@ -66,10 +72,16 @@ export const muiTheme = createTheme({
   palette: {
     background: {
       default: colors.white,
+      footer: colors.footer,
+      divider: colors.whiteMedium,
     },
     typography: {
-      primary: '#292929',
-      secondary: '#757575',
+      primary: colors.typography.primary,
+      secondary: colors.typography.secondary,
+      white: {
+        dark: colors.typography.white.dark,
+        light: colors.typography.white.light,
+      },
     },
   },
   typography: {

@@ -1,13 +1,17 @@
 import React, { useState, useEffect } from 'react'
+import { useParams } from 'react-router-dom'
 import PropTypes from 'prop-types'
-import { Box, Typography, IconButton } from '@material-ui/core'
+import { Box, Typography, IconButton, Divider } from '@material-ui/core'
 import { makeStyles } from '@material-ui/core/styles'
 import BookmarkAdd from '@material-ui/icons/BookmarkBorderOutlined'
 import Link from '@material-ui/icons/Link'
-import { useParams } from 'react-router-dom'
+import ThumbUpOutlined from '@material-ui/icons/ThumbUpOutlined'
+import ChatBubbleOutline from '@material-ui/icons/ChatBubbleOutline'
+import Avatar from 'components/Elements/Avatar'
+import { topics, Chip } from 'components/Aside/Topics'
 import { fetchSinglePost, fetchSingleUser } from 'api/jsonplaceholder'
 import { capitalize } from 'utils/stringUtils'
-import Avatar from 'components/Elements/Avatar'
+import { shuffle } from 'utils/arrayUtils'
 
 const useStyles = makeStyles((theme) => ({
   avatar: {
@@ -58,62 +62,111 @@ const Story = () => {
   const { title, body, name } = postData
   const date = 'May 21, 2020'
 
+  const storyActions = (
+    <Box display="flex">
+      <IconButton aria-label="copy link" className={classes.colorPrimary}>
+        <Link />
+      </IconButton>
+      <IconButton aria-label="save story" className={classes.colorPrimary}>
+        <BookmarkAdd />
+      </IconButton>
+    </Box>
+  )
+
   return (
-    <Box component="article">
-      <CenterContainer my={5}>
-        <Typography variant="h1">{capitalize(title)}</Typography>
+    <>
+      <Box component="article">
+        <CenterContainer my={5}>
+          <Typography variant="h1">{capitalize(title)}</Typography>
+          <Box
+            display="flex"
+            justifyContent="space-between"
+            alignItems="center"
+            mt={4}
+          >
+            <Box display="flex" alignItems="center">
+              <Avatar alt={name}>{name[0]}</Avatar>
+              <Box ml={1}>
+                <Typography
+                  variant="subtitle1"
+                  className={classes.colorPrimary}
+                >
+                  {name}
+                </Typography>
+                <Typography variant="subtitle1">{`${date} · 1 min read`}</Typography>
+              </Box>
+            </Box>
+            {storyActions}
+          </Box>
+
+          <Box component="figure" m={0} mt={{ xs: 5.25, sm: 7 }}>
+            <img
+              alt="placeholder for this story"
+              src="https://picsum.photos/680/430"
+              className={classes.image}
+            />
+            <Typography component="figcaption" variant="caption">
+              Photo by Picsum from Unsplash.
+            </Typography>
+          </Box>
+
+          <Typography variant="body1">{capitalize(body)}.</Typography>
+
+          <Typography variant="body1">{bodyFiller1}</Typography>
+          <Typography variant="body1">{bodyFiller2}</Typography>
+        </CenterContainer>
+      </Box>
+
+      <CenterContainer>
         <Box
           display="flex"
           justifyContent="space-between"
           alignItems="center"
-          mt={4}
+          mb={3}
         >
-          <Box display="flex" alignItems="center">
-            <Avatar>{name[0]}</Avatar>
-            <Box ml={1}>
-              <Typography variant="subtitle1" className={classes.colorPrimary}>
-                {name}
-              </Typography>
-              <Typography variant="subtitle1">{`${date} · 1 min read`}</Typography>
-            </Box>
-          </Box>
-          <Box display="flex">
-            <IconButton aria-label="copy link" className={classes.colorPrimary}>
-              <Link />
-            </IconButton>
+          <Box display="flex" alignItems="center" ml={-1}>
             <IconButton
-              aria-label="save story"
+              aria-label="like story"
               className={classes.colorPrimary}
             >
-              <BookmarkAdd />
+              <ThumbUpOutlined />
             </IconButton>
+            <Box ml={0.75} mr={2}>
+              <Typography variant="subtitle1" className={classes.colorPrimary}>
+                3.2K
+              </Typography>
+            </Box>
+            <IconButton
+              aria-label="view comments"
+              className={classes.colorPrimary}
+            >
+              <ChatBubbleOutline />
+            </IconButton>
+            <Box ml={0.75}>
+              <Typography variant="subtitle1" className={classes.colorPrimary}>
+                12
+              </Typography>
+            </Box>
           </Box>
+          {storyActions}
         </Box>
-
-        <Box component="figure" m={0} mt={{ xs: 5.25, sm: 7 }}>
-          <img
-            alt="placeholder for this story"
-            src="https://picsum.photos/680/430"
-            className={classes.image}
-          />
-          <Typography component="figcaption" variant="caption">
-            Photo by Picsum from Unsplash.
-          </Typography>
+        <Divider />
+        <Box my={4} ml={-0.75}>
+          {shuffle(topics)
+            .slice(0, 3)
+            .map((topic) => (
+              <Chip key={topic} label={topic} onClick={() => null} />
+            ))}
         </Box>
-
-        <Typography variant="body1">{capitalize(body)}</Typography>
-
-        <Typography variant="body1">{bodyFiller1}</Typography>
-        <Typography variant="body1">{bodyFiller2}</Typography>
       </CenterContainer>
-    </Box>
+    </>
   )
 }
 
 const CenterContainer = ({ children, my }) => {
   return (
     <Box display="flex" justifyContent="center">
-      <Box my={my} maxWidth={680}>
+      <Box my={my} maxWidth={680} width="100%">
         {children}
       </Box>
     </Box>
