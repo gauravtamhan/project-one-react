@@ -1,6 +1,15 @@
-import React from 'react'
+import React, { useState } from 'react'
 import PropTypes from 'prop-types'
-import { Box, Typography, IconButton, Drawer, Divider } from '@material-ui/core'
+import {
+  Box,
+  Paper,
+  Typography,
+  IconButton,
+  Drawer,
+  Divider,
+  Button,
+  InputBase,
+} from '@material-ui/core'
 import { makeStyles, useTheme } from '@material-ui/core/styles'
 import useMediaQuery from '@material-ui/core/useMediaQuery'
 import ChatBubbleOutline from '@material-ui/icons/ChatBubbleOutline'
@@ -27,12 +36,29 @@ const useStyles = makeStyles((theme) => ({
       width: '100%',
     },
   },
+  paperInputArea: {
+    margin: theme.spacing(5, 0),
+    padding: theme.spacing(1.75),
+    borderRadius: 2,
+    boxShadow: '0px 2px 8px rgba(0, 0, 0, 0.12)',
+    minHeight: 1,
+  },
+  btnMargin: {
+    marginRight: theme.spacing(0.5),
+  },
 }))
 
 const Comment = ({ comments, drawerOpen, toggleDrawer }) => {
   const classes = useStyles()
   const theme = useTheme()
   const isMobile = useMediaQuery(theme.breakpoints.down('xs'))
+
+  const [comment, setComment] = useState('')
+
+  const handleCommentSubmit = (e) => {
+    e.preventDefault()
+    setComment('')
+  }
 
   return (
     <>
@@ -57,8 +83,8 @@ const Comment = ({ comments, drawerOpen, toggleDrawer }) => {
           toggleDrawer(false)
         }}
       >
-        <Box className={classes.drawerRoot}>
-          <Box p={3} pb={1.5}>
+        <Box component="aside" className={classes.drawerRoot}>
+          <Box component="section" px={{ xs: 2, sm: 3 }} pt={3} pb={1.5}>
             <Box
               display="flex"
               justifyContent="space-between"
@@ -77,10 +103,49 @@ const Comment = ({ comments, drawerOpen, toggleDrawer }) => {
                 <Close />
               </IconButton>
             </Box>
+            <Paper className={classes.paperInputArea}>
+              <form
+                noValidate
+                autoComplete="off"
+                onSubmit={handleCommentSubmit}
+              >
+                <Box>
+                  <InputBase
+                    name="comment"
+                    fullWidth
+                    multiline
+                    placeholder="What's on your mind?"
+                    value={comment}
+                    onChange={(e) => {
+                      setComment(e.target.value)
+                    }}
+                    inputProps={{ 'aria-label': 'comment area' }}
+                  />
+                </Box>
+                <Box
+                  display="flex"
+                  justifyContent="flex-end"
+                  alignItems="center"
+                  mt={1.5}
+                >
+                  <Button
+                    type="submit"
+                    variant="contained"
+                    color="secondary"
+                    disableElevation
+                    disabled={!comment}
+                  >
+                    Respond
+                  </Button>
+                </Box>
+              </form>
+            </Paper>
             <Typography variant="overline">Most Relevant</Typography>
           </Box>
+
           <Divider />
-          <Box py={2} px={3}>
+
+          <Box py={2} px={{ xs: 2, sm: 3 }}>
             {comments.map(({ id, email, body }, index, arr) => (
               <React.Fragment key={id}>
                 <Box my={4}>
