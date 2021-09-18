@@ -84,7 +84,7 @@ const Comment = ({ comments, drawerOpen, toggleDrawer }) => {
         }}
       >
         <Box component="aside" className={classes.drawerRoot}>
-          <Box component="section" px={{ xs: 2, sm: 3 }} pt={3} pb={1.5}>
+          <Box component="section" px={3} pt={3} pb={1.5}>
             <Box
               display="flex"
               justifyContent="space-between"
@@ -145,7 +145,7 @@ const Comment = ({ comments, drawerOpen, toggleDrawer }) => {
 
           <Divider />
 
-          <Box py={2} px={{ xs: 2, sm: 3 }}>
+          <Box py={2} px={3}>
             {comments.map(({ id, email, body }, index, arr) => (
               <React.Fragment key={id}>
                 <Box my={4}>
