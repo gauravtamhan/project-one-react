@@ -7,6 +7,7 @@ const colors = {
   white: '#fff',
   whiteMedium: 'rgba(255, 255, 255, 0.54)',
   footer: '#191919',
+  green: '#1a8917',
   typography: {
     primary: '#292929',
     secondary: '#757575',
@@ -56,6 +57,16 @@ const muiButton = {
       borderColor: colors.typography.secondary,
       padding: '5px 12px 5px',
     },
+    contained: {
+      padding: '5px 12px 5px',
+    },
+    containedSecondary: {
+      '&.Mui-disabled': {
+        backgroundColor: colors.green,
+        opacity: 0.3,
+        color: colors.white,
+      },
+    },
   },
 }
 
@@ -69,11 +80,30 @@ const muiDrawer = {
   },
 }
 
+const muiInputBase = {
+  MuiInputBase: {
+    root: {
+      color: colors.typography.primary,
+      margin: 0,
+      fontFamily: '"Roboto", "Helvetica", "Arial", sans-serif',
+      fontWeight: 400,
+      fontSize: '0.875rem', // 14px
+      lineHeight: 1.4, // 20px
+      [`@media (min-width:${breakPoints.sm}px)`]: {
+        margin: 0,
+        fontSize: '0.875rem', // 14px
+        lineHeight: 1.4, // 20px
+      },
+    },
+  },
+}
+
 export const muiTheme = createTheme({
   overrides: {
     ...muiAppBar,
     ...muiButton,
     ...muiDrawer,
+    ...muiInputBase,
   },
   breakpoints: {
     values: {
@@ -93,6 +123,9 @@ export const muiTheme = createTheme({
         dark: colors.typography.white.dark,
         light: colors.typography.white.light,
       },
+    },
+    secondary: {
+      main: colors.green,
     },
   },
   typography: {
