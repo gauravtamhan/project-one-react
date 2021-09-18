@@ -6,10 +6,14 @@ import { makeStyles } from '@material-ui/core/styles'
 import BookmarkAdd from '@material-ui/icons/BookmarkBorderOutlined'
 import Link from '@material-ui/icons/Link'
 import ThumbUpOutlined from '@material-ui/icons/ThumbUpOutlined'
-import ChatBubbleOutline from '@material-ui/icons/ChatBubbleOutline'
 import Avatar from 'components/Elements/Avatar'
-import { topics, Chip } from 'components/Aside/Topics'
-import { fetchSinglePost, fetchSingleUser } from 'api/jsonplaceholder'
+import Comment from 'components/Comment/Comment'
+import { topics as allTopics, Chip } from 'components/Aside/Topics'
+import {
+  fetchSinglePost,
+  fetchSingleUser,
+  fetchAllCommentsByPost,
+} from 'api/jsonplaceholder'
 import { capitalize } from 'utils/stringUtils'
 import { shuffle } from 'utils/arrayUtils'
 
@@ -36,17 +40,23 @@ const Story = () => {
   const classes = useStyles()
   const { id } = useParams()
 
-  const [postData, setPostData] = useState({})
+  const [postData, setPostData] = useState()
   const [isLoading, setIsLoading] = useState(true)
+  const [isCommentDrawerOpen, setCommentDrawerOpen] = useState(false)
 
   useEffect(() => {
     const fetchData = async () => {
       try {
         const { userId, ...postData } = await fetchSinglePost(id.toString())
         const { name } = await fetchSingleUser(id.toString())
+        const comments = await fetchAllCommentsByPost(id.toString())
+        const topics = shuffle(allTopics).slice(0, 3)
+
         setPostData({
           ...postData,
           name,
+          comments,
+          topics,
         })
       } catch (e) {
         console.log('Error: ', e)
@@ -57,7 +67,7 @@ const Story = () => {
     fetchData()
   }, [id])
 
-  if (isLoading) return <div>Loading...</div>
+  if (isLoading || !postData) return <div>Loading...</div>
 
   const { title, body, name } = postData
   const date = 'May 21, 2020'
@@ -136,27 +146,19 @@ const Story = () => {
                 3.2K
               </Typography>
             </Box>
-            <IconButton
-              aria-label="view comments"
-              className={classes.colorPrimary}
-            >
-              <ChatBubbleOutline />
-            </IconButton>
-            <Box ml={0.75}>
-              <Typography variant="subtitle1" className={classes.colorPrimary}>
-                12
-              </Typography>
-            </Box>
+            <Comment
+              comments={postData.comments}
+              drawerOpen={isCommentDrawerOpen}
+              toggleDrawer={(value) => setCommentDrawerOpen(value)}
+            />
           </Box>
           {storyActions}
         </Box>
         <Divider />
         <Box my={4} ml={-0.75}>
-          {shuffle(topics)
-            .slice(0, 3)
-            .map((topic) => (
-              <Chip key={topic} label={topic} onClick={() => null} />
-            ))}
+          {postData.topics.map((topic) => (
+            <Chip key={topic} label={topic} onClick={() => null} />
+          ))}
         </Box>
       </CenterContainer>
     </>

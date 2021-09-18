@@ -59,10 +59,21 @@ const muiButton = {
   },
 }
 
+const muiDrawer = {
+  MuiDrawer: {
+    paperAnchorBottom: {
+      top: 40,
+      borderTopLeftRadius: 20,
+      borderTopRightRadius: 20,
+    },
+  },
+}
+
 export const muiTheme = createTheme({
   overrides: {
     ...muiAppBar,
     ...muiButton,
+    ...muiDrawer,
   },
   breakpoints: {
     values: {
