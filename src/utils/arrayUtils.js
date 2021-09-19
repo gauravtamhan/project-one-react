@@ -4,7 +4,8 @@
  * @returns same array but shuffled
  */
 export const shuffle = (array) => {
-  let currentIndex = array.length,
+  const newArray = [...array]
+  let currentIndex = newArray.length,
     randomIndex
 
   // While there remain elements to shuffle...
@@ -14,11 +15,11 @@ export const shuffle = (array) => {
     currentIndex--
 
     // And swap it with the current element.
-    ;[array[currentIndex], array[randomIndex]] = [
-      array[randomIndex],
-      array[currentIndex],
+    ;[newArray[currentIndex], newArray[randomIndex]] = [
+      newArray[randomIndex],
+      newArray[currentIndex],
     ]
   }
 
-  return array
+  return newArray
 }

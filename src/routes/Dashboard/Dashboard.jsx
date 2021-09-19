@@ -37,7 +37,7 @@ const Dashboard = () => {
     const fetchData = async () => {
       try {
         const allPosts = await fetchAllPosts()
-        const posts = allPosts.slice(0, NUMBER_OF_POSTS)
+        const posts = shuffle(allPosts).slice(0, NUMBER_OF_POSTS)
         const users = await fetchAllUsers()
         setUsers(shuffle(users))
         const imageNumberAdjustment = posts.length + 2
