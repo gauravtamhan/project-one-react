@@ -36,6 +36,10 @@ const useStyles = makeStyles((theme) => ({
       width: '100%',
     },
   },
+  drawerContent: {
+    paddingLeft: 'max(24px, env(safe-area-inset-left))',
+    paddingRight: 'max(24px, env(safe-area-inset-left))',
+  },
   paperInputArea: {
     margin: theme.spacing(5, 0),
     padding: theme.spacing(1.75),
@@ -84,7 +88,7 @@ const Comment = ({ comments, drawerOpen, toggleDrawer }) => {
         }}
       >
         <Box component="aside" className={classes.drawerRoot}>
-          <Box component="section" px={3} pt={3} pb={1.5}>
+          <Box className={classes.drawerContent} pt={3} pb={1.5}>
             <Box
               display="flex"
               justifyContent="space-between"
@@ -145,7 +149,7 @@ const Comment = ({ comments, drawerOpen, toggleDrawer }) => {
 
           <Divider />
 
-          <Box py={2} px={3}>
+          <Box className={classes.drawerContent} py={2}>
             {comments.map(({ id, email, body }, index, arr) => (
               <React.Fragment key={id}>
                 <Box my={4}>
