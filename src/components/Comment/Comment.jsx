@@ -64,10 +64,12 @@ const Comment = ({ comments, drawerOpen, toggleDrawer }) => {
     setComment('')
   }
 
+  const numberOfComments = comments.length
+
   return (
     <>
       <IconButton
-        aria-label="view comments"
+        aria-label={`view ${numberOfComments} comments`}
         className={classes.colorPrimary}
         onClick={() => {
           toggleDrawer(true)
@@ -76,8 +78,12 @@ const Comment = ({ comments, drawerOpen, toggleDrawer }) => {
         <ChatBubbleOutline />
       </IconButton>
       <Box ml={0.75}>
-        <Typography variant="subtitle1" className={classes.colorPrimary}>
-          {comments.length}
+        <Typography
+          role="presentation"
+          variant="subtitle1"
+          className={classes.colorPrimary}
+        >
+          {numberOfComments}
         </Typography>
       </Box>
       <Drawer

@@ -48,7 +48,7 @@ const Story = () => {
     const fetchData = async () => {
       try {
         const { userId, ...postData } = await fetchSinglePost(id.toString())
-        const { name } = await fetchSingleUser(id.toString())
+        const { name } = await fetchSingleUser(userId.toString())
         const comments = await fetchAllCommentsByPost(id.toString())
         const topics = shuffle(allTopics).slice(0, 3)
 
@@ -136,13 +136,18 @@ const Story = () => {
         >
           <Box display="flex" alignItems="center" ml={-1}>
             <IconButton
-              aria-label="like story"
+              aria-label="like this story along with 3,246 other people"
+              aria-pressed="false"
               className={classes.colorPrimary}
             >
               <ThumbUpOutlined />
             </IconButton>
             <Box ml={0.75} mr={2}>
-              <Typography variant="subtitle1" className={classes.colorPrimary}>
+              <Typography
+                role="presentation"
+                variant="subtitle1"
+                className={classes.colorPrimary}
+              >
                 3.2K
               </Typography>
             </Box>
