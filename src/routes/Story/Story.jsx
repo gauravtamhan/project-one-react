@@ -4,10 +4,10 @@ import PropTypes from 'prop-types'
 import { Box, Typography, IconButton, Divider } from '@material-ui/core'
 import { makeStyles } from '@material-ui/core/styles'
 import BookmarkAdd from '@material-ui/icons/BookmarkBorderOutlined'
-import Link from '@material-ui/icons/Link'
 import ThumbUpOutlined from '@material-ui/icons/ThumbUpOutlined'
 import Avatar from 'components/Elements/Avatar'
 import Comment from 'components/Comment/Comment'
+import CopyLinkButton from 'components/Buttons/CopyLinkButton'
 import { topics as allTopics, Chip } from 'components/Aside/Topics'
 import {
   fetchSinglePost,
@@ -74,9 +74,7 @@ const Story = () => {
 
   const storyActions = (
     <Box display="flex">
-      <IconButton aria-label="copy link" className={classes.colorPrimary}>
-        <Link />
-      </IconButton>
+      <CopyLinkButton />
       <IconButton aria-label="save story" className={classes.colorPrimary}>
         <BookmarkAdd />
       </IconButton>

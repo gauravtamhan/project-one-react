@@ -98,12 +98,28 @@ const muiInputBase = {
   },
 }
 
+const muiSnackbar = {
+  MuiSnackbar: {
+    root: {
+      left: 60,
+      right: 60,
+    },
+    anchorOriginTopCenter: {
+      top: 64,
+      [`@media (min-width:${breakPoints.sm}px)`]: {
+        top: 72,
+      },
+    },
+  },
+}
+
 export const muiTheme = createTheme({
   overrides: {
     ...muiAppBar,
     ...muiButton,
     ...muiDrawer,
     ...muiInputBase,
+    ...muiSnackbar,
   },
   breakpoints: {
     values: {
