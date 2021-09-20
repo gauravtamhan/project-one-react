@@ -79,7 +79,7 @@ const Comment = ({ comments, drawerOpen, toggleDrawer }) => {
       </IconButton>
       <Box ml={0.75}>
         <Typography
-          role="presentation"
+          aria-label={`${numberOfComments} comments`}
           variant="subtitle1"
           className={classes.colorPrimary}
         >

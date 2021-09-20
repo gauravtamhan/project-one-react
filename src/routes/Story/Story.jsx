@@ -144,7 +144,7 @@ const Story = () => {
             </IconButton>
             <Box ml={0.75} mr={2}>
               <Typography
-                role="presentation"
+                aria-label="3,246 likes"
                 variant="subtitle1"
                 className={classes.colorPrimary}
               >
