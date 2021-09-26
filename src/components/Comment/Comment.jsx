@@ -50,6 +50,12 @@ const useStyles = makeStyles((theme) => ({
   btnMargin: {
     marginRight: theme.spacing(0.5),
   },
+  mobileFontSize: {
+    [theme.breakpoints.down('xs')]: {
+      fontSize: '1rem',
+      lineHeight: 1.5,
+    },
+  },
 }))
 
 const Comment = ({ comments, drawerOpen, toggleDrawer }) => {
@@ -122,6 +128,7 @@ const Comment = ({ comments, drawerOpen, toggleDrawer }) => {
                   <InputBase
                     name="comment"
                     fullWidth
+                    classes={{ root: classes.mobileFontSize }}
                     multiline
                     placeholder="What's on your mind?"
                     value={comment}
@@ -168,16 +175,25 @@ const Comment = ({ comments, drawerOpen, toggleDrawer }) => {
                         className={clsx([
                           classes.colorPrimary,
                           classes.initialLineHeight,
+                          classes.mobileFontSize,
                         ])}
                       >
                         {email}
                       </Typography>
-                      <Typography variant="subtitle1">2 days ago</Typography>
+                      <Typography
+                        variant="subtitle1"
+                        className={classes.mobileFontSize}
+                      >
+                        2 days ago
+                      </Typography>
                     </Box>
                   </Box>
                   <Typography
                     variant="subtitle1"
-                    className={classes.colorPrimary}
+                    className={clsx([
+                      classes.colorPrimary,
+                      classes.mobileFontSize,
+                    ])}
                   >
                     {capitalize(body)}.
                   </Typography>
