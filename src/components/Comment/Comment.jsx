@@ -23,9 +23,11 @@ const useStyles = makeStyles((theme) => ({
     color: theme.palette.typography.primary,
   },
   smallAvatar: {
-    width: theme.spacing(4),
-    height: theme.spacing(4),
-    fontSize: '0.85rem',
+    [theme.breakpoints.up('sm')]: {
+      width: theme.spacing(4),
+      height: theme.spacing(4),
+      fontSize: '0.85rem',
+    },
   },
   initialLineHeight: {
     lineHeight: 'initial',
@@ -165,7 +167,12 @@ const Comment = ({ comments, drawerOpen, toggleDrawer }) => {
             {comments.map(({ id, email, body }, index, arr) => (
               <React.Fragment key={id}>
                 <Box my={4}>
-                  <Box display="flex" justifyContent="flex-start" mb={2}>
+                  <Box
+                    display="flex"
+                    justifyContent="flex-start"
+                    alignItems={{ xs: 'center', sm: 'flex-start' }}
+                    mb={2}
+                  >
                     <Avatar className={classes.smallAvatar} alt={email}>
                       {capitalize(email[0])}
                     </Avatar>
