@@ -70,7 +70,6 @@ const Comment = ({ comments, drawerOpen, toggleDrawer }) => {
     <>
       <IconButton
         aria-label={`view ${numberOfComments} comments`}
-        className={classes.colorPrimary}
         onClick={() => {
           toggleDrawer(true)
         }}

@@ -70,6 +70,14 @@ const muiButton = {
   },
 }
 
+const muiSvgIcon = {
+  MuiSvgIcon: {
+    root: {
+      color: colors.typography.primary,
+    },
+  },
+}
+
 const muiDrawer = {
   MuiDrawer: {
     paperAnchorBottom: {
@@ -120,6 +128,7 @@ export const muiTheme = createTheme({
     ...muiDrawer,
     ...muiInputBase,
     ...muiSnackbar,
+    ...muiSvgIcon,
   },
   breakpoints: {
     values: {

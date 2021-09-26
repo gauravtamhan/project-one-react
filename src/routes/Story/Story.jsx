@@ -75,7 +75,7 @@ const Story = () => {
   const storyActions = (
     <Box display="flex">
       <CopyLinkButton />
-      <IconButton aria-label="save story" className={classes.colorPrimary}>
+      <IconButton aria-label="save story">
         <BookmarkAdd />
       </IconButton>
     </Box>
@@ -136,7 +136,6 @@ const Story = () => {
             <IconButton
               aria-label="like this story along with 3,246 other people"
               aria-pressed="false"
-              className={classes.colorPrimary}
             >
               <ThumbUpOutlined />
             </IconButton>
