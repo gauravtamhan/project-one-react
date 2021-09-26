@@ -58,6 +58,12 @@ const useStyles = makeStyles((theme) => ({
       lineHeight: 1.5,
     },
   },
+  mobileSubFontSize: {
+    [theme.breakpoints.down('xs')]: {
+      fontSize: '0.875rem',
+      lineHeight: 1.25,
+    },
+  },
 }))
 
 const Comment = ({ comments, drawerOpen, toggleDrawer }) => {
@@ -189,7 +195,7 @@ const Comment = ({ comments, drawerOpen, toggleDrawer }) => {
                       </Typography>
                       <Typography
                         variant="subtitle1"
-                        className={classes.mobileFontSize}
+                        className={classes.mobileSubFontSize}
                       >
                         2 days ago
                       </Typography>
